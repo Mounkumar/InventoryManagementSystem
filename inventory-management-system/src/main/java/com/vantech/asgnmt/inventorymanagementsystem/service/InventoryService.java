@@ -18,7 +18,7 @@ public class InventoryService {
 	@Autowired
 	InventoryRepository repository;
 	
-	public static List<String> errorlist = new ArrayList<String>();
+	public List<String> errorlist;
 	
 	public Response addQuantity(String partNumber, String serialNumber, Double qty) {
 		
@@ -55,7 +55,7 @@ public class InventoryService {
 		
 		if(errorlist.isEmpty()) {
 			
-			if(inventory.getAvailableQty() == qty) {
+			if(inventory.getAvailableQty().equals(qty)) {
 				repository.delete(inventory);
 				response = new Response(HttpStatus.OK, "Deleted the record as quantity became zero", null, errorlist);
 			}
@@ -81,6 +81,8 @@ public class InventoryService {
 	}
 	
 	public void validateInputParams(String partNumber, String serialNumber, Double qty) {
+		
+		errorlist = new ArrayList<String>();
 		
 		if(partNumber == null || partNumber.isBlank()) {
 			errorlist.add("Part number is missing or provided part number is not valid");
