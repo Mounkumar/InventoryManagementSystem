@@ -19,7 +19,7 @@ public class InventoryController {
 	
 	@PutMapping("/SA-IN")
 	public ResponseEntity<Response>  addQuantity(@Param(value = "partNumber") String partNumber, 
-			@Param(value = "serialNumber") String serialNumber, @Param(value = "qty") Double qty) {
+			@Param(value = "serialNumber") String serialNumber, @Param(value = "quantity") Double qty) {
 		Response response = invService.addQuantity(partNumber, serialNumber, qty);
 		
 	    return new ResponseEntity<Response>(response, response.status);
@@ -29,7 +29,7 @@ public class InventoryController {
 	}
 	@PutMapping("/SA-OUT")
 	public ResponseEntity<Response> deleteQuantity(@Param(value = "partNumber") String partNumber, 
-			@Param(value = "serialNumber") String serialNumber, @Param(value = "qty") Double qty) {
+			@Param(value = "serialNumber") String serialNumber, @Param(value = "quantity") Double qty) {
 		Response response = invService.deductQuantity(partNumber, serialNumber, qty);
 		
 	    return new ResponseEntity<Response>(response, response.status);
